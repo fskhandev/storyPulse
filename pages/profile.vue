@@ -1,8 +1,11 @@
 <template>
-  <Stories popularStories="popular" title="Popular stories" />
+    <Profile />
 </template>
 
 <script setup>
+useHead({
+  title: "Profile - StoryPulse",
+})
 definePageMeta({
   middleware: ["auth"]
 });

@@ -1,20 +1,16 @@
 <template>
-  <div>
-    <div class="banner"></div>
-    <HomeServices />
-    <HomeDeliver />
-    <HomePerformance />
-    <HomeEnterprises />
-  </div>
+  <AboutUs />
 </template>
 
-<script></script>
+<script setup>
+definePageMeta({
+  layout: "custom"
+})
 
-<style scoped>
-.banner {
-  background-image: url("/images/creative-services.png");
-  background-position: center;
-  background-size: cover;
-  height: 100vh;
-}
-</style>
+useHead({
+  title: "About us - StoryPulse",
+})
+
+ </script>
+
+<style scoped></style>
