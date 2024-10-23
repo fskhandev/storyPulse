@@ -6,7 +6,7 @@
     >
       <div class="absolute w-full h-full bg-[rgba(0,0,0,0.4)]"></div>
       <div
-        class="absolute w-full justify-center items-center flex-col md:justify-between items-center -bottom-2/4 px-8 flex md:-bottom-12"
+        class="absolute w-full justify-center items-center md:flex-row flex-col md:justify-between items-center -bottom-2/4 px-8 flex md:-bottom-12"
       >
         <div class="flex flex-col items-center">
           <img
@@ -29,7 +29,7 @@
         >
           <button
             @click="showModal"
-            class="px-8 py-2 rounded-md border-orange-200 border text-slate-900 md:ext-white"
+            class="px-8 py-2 rounded-md border-orange-200 border md:text-white text-slate-900 md:ext-white"
           >
             Create story
           </button>

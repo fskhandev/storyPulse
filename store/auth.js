@@ -4,6 +4,7 @@ export const useAuthStore = defineStore("useAuth", () => {
   const isLoggedIn = useState();
   const user = useUser();
   const { $Fetch } = useNuxtApp();
+  const email = useState()
   const token = useCookie("token");
 
   async function getUser() {
