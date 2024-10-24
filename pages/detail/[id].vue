@@ -59,7 +59,7 @@ useHead({
 import { ref } from "vue"
 import moment from "moment"
 const router = useRoute()
-const baseUrl = ref("http://localhost:3003/");
+const baseUrl = ref("https://story-backend-production-3684.up.railway.app")
 const { data, pending } = useMyFetch(`/get-story-detail/${router.params.id}`, {
     server: false
 });

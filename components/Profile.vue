@@ -82,7 +82,7 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 const router = useRoute();
-const baseUrl = ref("http://localhost:3003/");
+const baseUrl = ref("https://story-backend-production-3684.up.railway.app")
 const { $Fetch } = useNuxtApp();
 const showEditModal = ref(false);
 const userStories = ref([]);
@@ -159,7 +159,6 @@ function editStory(story) {
 
 function addStory(story) {
   userStories.value.unshift(story);
-  console.log(story);
 }
 
 async function deleteStory(storyId, index) {

@@ -107,7 +107,7 @@ const router = useRouter();
 const user = useUser();
 const isLoggedIn = useAuth();
 const token = useCookie("token");
-const baseUrl = ref("http://localhost:3003/");
+const baseUrl = ref("https://story-backend-production-3684.up.railway.app")
 defineProps({
   isScroll: {
     default: false,

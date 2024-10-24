@@ -21,7 +21,7 @@
           }}</small>
         </div>
       </NuxtLink>
-      <div v-else class="flex gap-2 items-center" >
+      <div v-else class="flex gap-2 items-center">
         <img
           v-if="story?.user?.profile_image"
           class="w-10 h-10 rounded-full border-2 border-orange-400"
@@ -43,7 +43,9 @@
           @click="isCardMenu = !isCardMenu"
           class="flex dots gap-0.5"
         >
-          <span class="pointer-events-none"></span><span class="pointer-events-none"></span><span class="pointer-events-none"></span>
+          <span class="pointer-events-none"></span
+          ><span class="pointer-events-none"></span
+          ><span class="pointer-events-none"></span>
         </div>
         <ul
           v-if="isCardMenu"
@@ -115,7 +117,7 @@ import { toRefs, onMounted } from "vue";
 const isLoggedIn = useAuth();
 const user = useUser();
 import moment from "moment";
-const baseUrl = ref("http://localhost:3003/");
+const baseUrl = ref("https://story-backend-production-3684.up.railway.app")
 const emit = defineEmits(["updateStory", "deleteStory", "removeFromArchived"]);
 const { $Fetch } = useNuxtApp();
 const isCardMenu = ref(false);
