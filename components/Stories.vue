@@ -13,7 +13,7 @@
       <p class="text-center text-xl" v-if="loading">Loading...</p>
       <p
         v-if="!loading && !result.length"
-        class="text-xl text-center text-red-400"
+        class="text-xl mt-10 text-center text-red-400"
       >
         No record found
       </p>
