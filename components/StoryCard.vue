@@ -2,6 +2,7 @@
   <div class="shadow h-full border-t border-l border-r relative">
     <div class="py-2 px-1 flex justify-between items-center">
       <NuxtLink
+        v-if="!auth"
         class="flex gap-2 items-center"
         :to="{ name: 'profile', query: { user_id: story.user.user_id } }"
       >
@@ -11,6 +12,7 @@
           :src="baseUrl + story?.user?.profile_image"
           alt=""
         />
+
         <IconProfileAvatar v-else class="w-10 fill-slate-500 h-10" />
         <div>
           <p class="mb-0">{{ story.user.name }}</p>
@@ -19,13 +21,29 @@
           }}</small>
         </div>
       </NuxtLink>
+      <div v-else class="flex gap-2 items-center" >
+        <img
+          v-if="story?.user?.profile_image"
+          class="w-10 h-10 rounded-full border-2 border-orange-400"
+          :src="baseUrl + story?.user?.profile_image"
+          alt=""
+        />
+
+        <IconProfileAvatar v-else class="w-10 fill-slate-500 h-10" />
+        <div>
+          <p class="mb-0">{{ story.user.name }}</p>
+          <small class="-mt-1 block">{{
+            moment(story.createdAt).fromNow()
+          }}</small>
+        </div>
+      </div>
       <div class="relative" v-if="story.user.user_id === user.user_id">
         <div
           ref="dots"
           @click="isCardMenu = !isCardMenu"
           class="flex dots gap-0.5"
         >
-          <span></span><span></span><span></span>
+          <span class="pointer-events-none"></span><span class="pointer-events-none"></span><span class="pointer-events-none"></span>
         </div>
         <ul
           v-if="isCardMenu"

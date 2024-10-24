@@ -67,13 +67,13 @@
       <div class="grid mt-5 grid-cols-1 gap-6 md:grid-cols-3">
         <StoryCard
           :auth="true"
-          v-for="(story,index) in userStories"
-          :key="story.story_id"
+          v-for="(story, index) in userStories"
+          :key="index"
           @deleteStory="deleteStory"
           @updateStory="updateStory"
           :story="story"
           :index="index"
-          @isEdit="isEdit"
+          :isEdit="isEdit"
         />
       </div>
     </div>
@@ -87,10 +87,10 @@ const { $Fetch } = useNuxtApp();
 const showEditModal = ref(false);
 const userStories = ref([]);
 const userDetail = ref({});
-const isEdit = ref(false)
+const isEdit = ref(false);
 const currentPage = ref(1);
 const isModal = ref(false);
-const selectedStory = ref()
+const selectedStory = ref();
 
 const user = useUser();
 if (router.query.user_id) {
@@ -138,6 +138,7 @@ function toggleModal(updatedUser) {
 
 function showModal() {
   isEdit.value = false;
+  selectedStory.value = {}
   isModal.value = !isModal.value;
   if (isModal.value) {
     document.body.style.overflow = "hidden";
