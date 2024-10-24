@@ -117,7 +117,7 @@ import { toRefs, onMounted } from "vue";
 const isLoggedIn = useAuth();
 const user = useUser();
 import moment from "moment";
-const baseUrl = ref("https://story-backend-production-3684.up.railway.app")
+const baseUrl = ref("https://story-backend-production-3684.up.railway.app/")
 const emit = defineEmits(["updateStory", "deleteStory", "removeFromArchived"]);
 const { $Fetch } = useNuxtApp();
 const isCardMenu = ref(false);

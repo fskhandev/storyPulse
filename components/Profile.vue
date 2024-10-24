@@ -82,7 +82,7 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 const router = useRoute();
-const baseUrl = ref("https://story-backend-production-3684.up.railway.app")
+const baseUrl = ref("https://story-backend-production-3684.up.railway.app/")
 const { $Fetch } = useNuxtApp();
 const showEditModal = ref(false);
 const userStories = ref([]);

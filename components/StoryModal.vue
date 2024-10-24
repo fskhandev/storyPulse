@@ -79,7 +79,7 @@ let { story, isEdit } = props;
 const { $Fetch } = useNuxtApp();
 const showImage = ref("");
 const loader = ref(false);
-const baseUrl = ref("https://story-backend-production-3684.up.railway.app")
+const baseUrl = ref("https://story-backend-production-3684.up.railway.app/")
 const blog = reactive({
   story_id: story?.story_id,
   title: story.title || "",
