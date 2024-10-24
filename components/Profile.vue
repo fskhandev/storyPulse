@@ -58,29 +58,35 @@
         </button>
       </div>
     </div>
-    <div class="md:max-w-[60%] px-4 md:px-16 -mt-28 md:-mt-36 text-justify mx-auto">
+    <div class="-mt-28 md:-mt-36">
+    <div
+      class="md:max-w-[60%] px-4 md:px-16  text-justify mx-auto"
+    >
       <p>
         {{ userDetail.description }}
       </p>
+
+   
     </div>
     <div class="stories mt-10 mb-10 md:px-16 px-3">
-      <h2 class="border-b border-slate-700 text-xl font-semibold text-center">
-        <span class="border-b-2 border-orange-500"> Stories</span>
-      </h2>
+        <h2 class="border-b border-slate-700 text-xl font-semibold text-center">
+          <span class="border-b-2 border-orange-500"> Stories</span>
+        </h2>
 
-      <div class="grid mt-5 grid-cols-1 gap-6 md:grid-cols-3">
-        <StoryCard
-          :auth="true"
-          v-for="(story, index) in userStories"
-          :key="index"
-          @deleteStory="deleteStory"
-          @updateStory="updateStory"
-          :story="story"
-          :index="index"
-          :isEdit="isEdit"
-        />
+        <div class="grid mt-5 grid-cols-1 gap-6 md:grid-cols-3">
+          <StoryCard
+            :auth="true"
+            v-for="(story, index) in userStories"
+            :key="index"
+            @deleteStory="deleteStory"
+            @updateStory="updateStory"
+            :story="story"
+            :index="index"
+            :isEdit="isEdit"
+          />
+        </div>
       </div>
-    </div>
+  </div>
   </div>
 </template>
 <script setup>
