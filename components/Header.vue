@@ -32,7 +32,7 @@
         <NuxtLink
           @click.native="toggleSidebar"
           class="text-lg py-3 md:py-0"
-          to="/all-stories"
+          to="/popular"
           >Popular Stories</NuxtLink
         >
         <NuxtLink
