@@ -1,9 +1,9 @@
 <template>
-  <Stories title="All stories" :is-home-banner="false" />
+  <Stories popularStories="popular" title="Popular stories" />
 </template>
 <script setup>
 useHead({
-  title: "All Stories - StoryPulse",
+  title: "Popular Stories - StoryPulse",
 })
 definePageMeta({
   middleware: ["auth"]

@@ -1,5 +1,5 @@
 <template>
-  <Stories popularStories="popular" title="Popular stories" />
+ <Stories title="All stories" />
 </template>
 
 <script setup>
