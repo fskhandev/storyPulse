@@ -4,7 +4,7 @@
       isScroll || custom ? 'bg-slate-400' : '',
       custom ? 'sticky' : 'fixed',
     ]"
-    class="flex z-40 items-center w-full text-white px-3 md:px-16 top-0 justify-between py-5"
+    class="flex z-40 items-center w-full text-white px-3 md:px-16 top-0 justify-between py-3"
   >
     <NuxtLink to="/" class="font-semibold text-2xl">StoryPulse</NuxtLink>
 

@@ -35,7 +35,7 @@
       <button
         type="submit"
         :disabled="loader"
-        class="w-full flex  disabled:hover:bg-orange-600 h-12 items-center justify-center hover:bg-orange-500 transition-all py-2.5 bg-orange-600 text-white rounded-xl"
+        class="w-full flex disabled:hover:bg-orange-600 h-12 items-center justify-center hover:bg-orange-500 transition-all py-2.5 bg-orange-600 text-white rounded-xl"
       >
         <span
           class="w-5 h-5 block border-2 border-gray-200 border-t-blue-300 rounded-full animate-spin"
@@ -52,8 +52,9 @@
       <p
         v-if="errMsg.length"
         class="absolute block -right-2 -top-5 border bg-gray-300 text-red-500 bg-white px-8 py-1.5 rounded-md"
-        >{{ errMsg }}</p
       >
+        {{ errMsg }}
+      </p>
     </form>
   </div>
 </template>
@@ -65,7 +66,7 @@ const { $Fetch } = useNuxtApp();
 const setUser = useUser();
 const type = ref("password");
 const loader = ref(false);
-const errMsg = ref("")
+const errMsg = ref("");
 const isLoggedIn = useAuth("auth");
 const router = useRouter();
 definePageMeta({
@@ -100,7 +101,7 @@ async function login() {
     const res = await $Fetch("/login", {
       method: "POST",
       body: userData,
-    });    
+    });
     loader.value = false;
     if (res.success) {
       cookie.value = res.token;
@@ -110,9 +111,9 @@ async function login() {
       setUser.value = res.user;
       router.push("/");
     } else {
-      errMsg.value = res.message
+      errMsg.value = res.message;
       setTimeout(() => {
-        errMsg.value = ""
+        errMsg.value = "";
       }, 4000);
     }
   } catch (err) {
@@ -129,6 +130,4 @@ async function login() {
   width: 100%;
   height: 100vh;
 }
-
-
 </style>

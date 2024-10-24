@@ -1,5 +1,5 @@
 <template>
- <Stories title="All stories" />
+ <Stories title="All stories"  />
 </template>
 
 <script setup>
