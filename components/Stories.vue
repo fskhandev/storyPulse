@@ -7,9 +7,15 @@
     />
     <BannerArchive v-if="archive" />
     <div class="md:px-20 px-3 my-5 md:my-8">
-      <h1 class="text-2xl font-semibold">
-        <span class="border-b-2 border-orange-500 pb-1"> {{ title }}</span>
-      </h1>
+      <div class=" flex justify-between">
+        <span class="border-b-2 text-2xl font-semibold border-orange-500 pb-1"> {{ title }}</span>
+        <button
+          @click="showModal"
+          class="px-6 py-1.5 rounded-md hover:bg-orange-500 transition-all bg-orange-400 border text-white"
+        >
+          Create Story
+        </button>
+      </div>
       <p class="text-center text-xl" v-if="loading">Loading...</p>
       <p
         v-if="!loading && !result.length"
@@ -140,10 +146,10 @@ async function removeFromArchived(index) {
 function showModal() {
   isEdit.value = false;
   isModal.value = !isModal.value;
-  if(isModal.value) {
-    document.body.style.overflow = "hidden"
+  if (isModal.value) {
+    document.body.style.overflow = "hidden";
   } else {
-     document.body.style.overflow = "auto"
+    document.body.style.overflow = "auto";
   }
 }
 </script>

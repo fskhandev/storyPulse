@@ -1,5 +1,5 @@
 <template>
-  <Stories popularStories="popular" title="Popular stories" />
+  <Stories :is-home-banner="false" popularStories="popular" title="Popular stories" />
 </template>
 <script setup>
 useHead({

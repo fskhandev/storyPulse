@@ -1,9 +1,6 @@
 <template>
     <div class="blog-banner relative">
-        <button v-if="isLoggedIn" @click="$emit('showModal')"
-            class="px-8 py-2 text-xl rounded-md border-orange-300 border text-white absolute right-10 bottom-5">
-            Create Story
-        </button>
+ 
     </div>
 </template>
 
