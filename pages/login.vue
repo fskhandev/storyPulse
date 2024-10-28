@@ -41,7 +41,7 @@
           class="w-5 h-5 block border-2 border-gray-200 border-t-blue-300 rounded-full animate-spin"
           v-if="loader"
         ></span>
-        <span v-else>Login {{ userData }}</span>
+        <span v-else>Login {{ userData }} {{ token ? token : "no token" }}</span>
       </button>
       <div>
         <span
@@ -70,7 +70,7 @@ const errMsg = ref("");
 const isLoggedIn = useAuth("auth");
 const router = useRouter();
 const route = useRoute();
-const userData = useUser()
+const userData = useUser();
 definePageMeta({
   layout: "auth",
   middleware: "home",
