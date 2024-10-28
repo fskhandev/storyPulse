@@ -48,6 +48,7 @@
 <script setup>
 import VOtpInput from "vue3-otp-input";
 import { ref, reactive, onMounted } from "vue";
+const cookie = useCookie("token");
 const isLoggedIn = useAuth("auth");
 const otpCode = ref("");
 const { $Fetch } = useNuxtApp();
@@ -87,7 +88,6 @@ async function verify() {
       body: userData,
     });
     if(res.success && route.query.status) {
-      const cookie = useCookie("token", { maxAge: 7 * 24 * 60 * 60 });
       cookie.value = res.token;
       cookie.value = res.token;
       console.log(res.user);

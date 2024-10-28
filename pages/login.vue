@@ -63,6 +63,7 @@
 import { ref, reactive } from "vue";
 const { $Fetch } = useNuxtApp();
 const setUser = useUser();
+const cookie = useCookie("token");
 const type = ref("password");
 const loader = ref(false);
 const errMsg = ref("");
@@ -109,7 +110,6 @@ async function login() {
       return;
     }
     if (res.success) {
-      const cookie = useCookie("token", { maxAge: 7 * 24 * 60 * 60 });
       cookie.value = res.token;
       isLoggedIn.value = true;
       setUser.value = res.user;
