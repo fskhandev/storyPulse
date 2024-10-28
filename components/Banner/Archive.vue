@@ -10,7 +10,7 @@ const isLoggedIn = useAuth();
 <style scoped>
 .blog-banner {
   width: 100%;
-  height: 35vh;
+  height: 40vh;
   background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("/images/archive.jpg");
   background-position: center;
   background-size: cover;

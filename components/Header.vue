@@ -1,17 +1,22 @@
 <template>
   <div
     :class="[
-      isScroll || custom ? 'bg-slate-400' : '',
+      isScroll || custom ? 'bg-[#f1f1f1] text-slate-900' : 'md:text-white',
       custom ? 'sticky' : 'fixed',
     ]"
-    class="flex z-40 items-center w-full text-white px-3 md:px-16 top-0 justify-between py-3"
+    class="flex z-40 items-center w-full px-3 md:px-16 top-0 justify-between py-4"
   >
-    <NuxtLink to="/" class="font-semibold text-2xl">StoryPulse</NuxtLink>
+    <NuxtLink
+      :class="[isScroll || custom ? 'text-slate-900' : 'text-white']"
+      to="/"
+      class="font-semibold text-2xl"
+      >StoryPulse</NuxtLink
+    >
 
     <div class="flex gap-4">
       <ul
         :class="[showSidebar ? 'left-0' : '-left-64 ']"
-        class="flex fixed px-5 md:px-0 md:flex-row pt-5 transition-all md:pt-0 flex-col top-0 md:text-white text-slate-900 h-screen md:bg-transparent bg-white w-64 md:w-auto md:h-auto md:static gap-4 md:gap-10 md:items-center"
+        class="flex fixed px-5 md:px-0 md:flex-row pt-5 transition-all md:pt-0 flex-col top-0 h-screen md:bg-transparent bg-white w-64 md:w-auto md:h-auto md:static gap-4 md:gap-10 md:items-center"
       >
         <div class="flex md:hidden justify-between">
           <h2 class="text-2xl font-semibold">Stories</h2>
@@ -44,6 +49,7 @@
       </ul>
       <div v-if="isLoggedIn" class="text-lg md:px-4 group z-40 relative">
         <p
+          :class="[isScroll || custom ? 'text-slate-900' : 'text-white']"
           @mouseover="showProfileMenu"
           @mouseleave="closeProfileMenu"
           class="cursor-pointer text-lg py-3 md:py-0"
@@ -66,7 +72,7 @@
             >
               <img
                 v-if="user.profile_image"
-                :src="baseUrl + user.profile_image"
+                :src="user.profile_image"
                 class="w-7 rounded-full h-7"
                 alt=""
               />
@@ -92,7 +98,12 @@
       >
       <iconHumberger
         @click="toggleSidebar"
-        class="w-8 cursor-pointer md:hidden stroke-white fill-white"
+        :class="[
+          isScroll
+            ? 'stroke-slate-900 fill-slate-900'
+            : 'stroke-white fill-white',
+        ]"
+        class="w-8 cursor-pointer md:hidden"
       />
     </div>
   </div>
@@ -107,7 +118,6 @@ const router = useRouter();
 const user = useUser();
 const isLoggedIn = useAuth();
 const token = useCookie("token");
-const baseUrl = ref("https://story-backend-production-3684.up.railway.app/")
 defineProps({
   isScroll: {
     default: false,

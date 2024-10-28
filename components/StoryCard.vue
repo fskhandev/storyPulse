@@ -9,7 +9,7 @@
         <img
           v-if="story?.user?.profile_image"
           class="w-10 h-10 rounded-full border-2 border-orange-400"
-          :src="baseUrl + story?.user?.profile_image"
+          :src="story?.user?.profile_image"
           alt=""
         />
 
@@ -25,7 +25,7 @@
         <img
           v-if="story?.user?.profile_image"
           class="w-10 h-10 rounded-full border-2 border-orange-400"
-          :src="baseUrl + story?.user?.profile_image"
+          :src="story?.user?.profile_image"
           alt=""
         />
 
@@ -72,8 +72,8 @@
       :to="{ name: 'detail-id', params: { id: story.story_id } }"
     >
       <img
-        class="w-full h-full aspect-video"
-        :src="baseUrl + story.image"
+        class="w-full  h-full"
+        :src="story.image"
         alt=""
       />
     </NuxtLink>
@@ -117,7 +117,6 @@ import { toRefs, onMounted } from "vue";
 const isLoggedIn = useAuth();
 const user = useUser();
 import moment from "moment";
-const baseUrl = ref("https://story-backend-production-3684.up.railway.app/")
 const emit = defineEmits(["updateStory", "deleteStory", "removeFromArchived"]);
 const { $Fetch } = useNuxtApp();
 const isCardMenu = ref(false);

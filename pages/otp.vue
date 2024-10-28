@@ -1,8 +1,14 @@
 <template>
   <div class="flex login justify-center px-2 items-center">
     <div
-      class="form w-full sm:w-[400px] rounded-md bg-white shadow-md space-y-4 py-6 px-3 md:p-10"
+      class="form w-full relative sm:w-[400px] rounded-md bg-white shadow-md space-y-4 py-6 px-3 md:p-10"
     >
+      <span
+        v-if="message"
+        class="absolute bg-white text-red-400 left-0 border -top-10 px-8 py-2 rounded-md"
+      >
+        {{ message }}
+      </span>
       <h3 class="text-center text-2xl text-orange-600 font-semibold">
         Verify your account
       </h3>
@@ -40,13 +46,20 @@
 </template>
 
 <script setup>
-const cookie = useCookie("token");
-
 import VOtpInput from "vue3-otp-input";
 import { ref, reactive, onMounted } from "vue";
+const isLoggedIn = useAuth("auth");
 const otpCode = ref("");
 const { $Fetch } = useNuxtApp();
 const router = useRouter();
+const setUser = useUser()
+const route = useRoute();
+const message = ref("");
+if (route.query.status) {
+  message.value =
+    "Your account is not verified. Please verify your account by entering the OTP sent to your email.";
+}
+
 definePageMeta({
   layout: "auth",
   middleware: "home",
@@ -60,23 +73,32 @@ const handleOnComplete = (value) => {
   otpCode.value = value;
 };
 
-
-
 async function verify() {
   const userData = {
     email: localStorage.getItem("email"),
     otp: otpCode.value,
   };
+  if (route.query.status) {
+    userData.status = route.query.status;
+  }
   try {
     const res = await $Fetch("/verify-otp", {
       method: "POST",
       body: userData,
     });
-    console.log(res);
+    if(res.success && route.query.status) {
+      const cookie = useCookie("token", { maxAge: 7 * 24 * 60 * 60 });
+      cookie.value = res.token;
+      cookie.value = res.token;
+      console.log(res.user);
 
+      isLoggedIn.value = true;
+      setUser.value = res.user;
+      router.push("/");
+    }
     if (res.success) {
       localStorage.removeItem("email");
-      router.push("/login")
+      router.push("/login");
     }
   } catch (err) {
     console.log(err);

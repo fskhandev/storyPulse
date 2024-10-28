@@ -2,7 +2,8 @@
   <div
     class="fixed bg-[rgba(0,0,0,0.5)] z-40 inset-0 flex justify-center items-center"
   >
-    <div
+    <form
+      @submit.prevent="createStory"
       class="form w-full mx-4 md:w-[500px] relative rounded-md bg-white shadow-md space-y-4 p-3 md:p-10"
     >
       <IconClose
@@ -16,11 +17,14 @@
         type="text"
         class="w-full rounded-xl border border-slate-400 focus:outline-none py-2.5 px-5"
         v-model="blog.title"
+        ref="storyTitle"
         placeholder="Enter title"
+        required
       />
       <textarea
         name=""
         id=""
+        required
         class="w-full rounded-xl border border-slate-400 focus:outline-none py-2.5 px-5"
         placeholder="Description"
         rows="3"
@@ -43,7 +47,7 @@
         </div>
       </div>
       <button
-        @click="createStory"
+        type="submit"
         :disabled="loader"
         class="w-full py-2.5 h-12 flex justify-center items-center bg-orange-600 text-white rounded-xl"
       >
@@ -53,12 +57,12 @@
         ></span>
         <span v-else> {{ isEdit ? "Update" : "Create" }}</span>
       </button>
-    </div>
+    </form>
   </div>
 </template>
 
 <script setup>
-import { ref, reactive, defineEmits } from "vue";
+import { ref, reactive, defineEmits, onMounted } from "vue";
 const emit = defineEmits(["editStory", "showModal", "addStory"]);
 const props = defineProps({
   story: {
@@ -78,14 +82,19 @@ const user = useUser();
 let { story, isEdit } = props;
 const { $Fetch } = useNuxtApp();
 const showImage = ref("");
+const storyTitle = ref()
 const loader = ref(false);
-const baseUrl = ref("https://story-backend-production-3684.up.railway.app/")
+const baseUrl = ref("https://story-backend-production-3684.up.railway.app/");
 const blog = reactive({
   story_id: story?.story_id,
   title: story.title || "",
   description: story.description || "",
   image: story.image ? (showImage.value = baseUrl.value + story.image) : "",
 });
+
+onMounted(() => {
+  storyTitle.value.focus()
+})
 
 function selectImage(event) {
   const imageFiles = event.target.files[0];

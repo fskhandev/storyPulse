@@ -1,8 +1,9 @@
 <template>
   <div
-    class="fixed  md:py-1 h-screen overflow-x-hidden bg-[rgba(0,0,0,0.5)] z-40 inset-0 flex justify-center items-center"
+    class="fixed md:py-1 h-screen overflow-x-hidden bg-[rgba(0,0,0,0.5)] z-40 inset-0 flex justify-center items-center"
   >
-    <div
+    <form
+      @submit.prevent="updateProfile"
       class="form w-full overflow-y-auto max-h-[95%] md:max-h-[100%] mx-4 md:w-3/4 relative rounded-md bg-white shadow-md space-y-4 p-4"
     >
       <IconClose
@@ -57,6 +58,8 @@
           <label for="">Name</label>
           <input
             type="text"
+            ref="userName"
+            required
             class="w-full mt-2 rounded-xl border border-slate-400 focus:outline-none py-2 px-3"
             v-model="user.name"
             placeholder="Enter name"
@@ -66,8 +69,10 @@
           <label for="">Email</label>
           <input
             type="text"
+            required
             class="w-full mt-2 rounded-xl border border-slate-400 focus:outline-none py-2 px-3"
             v-model="user.email"
+            disabled
             placeholder="Enter email"
           />
         </div>
@@ -93,8 +98,8 @@
         ></textarea>
       </div>
       <button
-        @click="updateProfile"
         :disabled="loader"
+        type="submit"
         :class="[!loader ? 'hover:bg-orange-500' : '']"
         class="w-36 flex justify-center transition-all items-center h-11 ml-auto bg-orange-600 text-white rounded-xl"
       >
@@ -104,7 +109,7 @@
         ></span>
         <span v-else>Update profile</span>
       </button>
-    </div>
+    </form>
   </div>
 </template>
 
@@ -124,10 +129,10 @@ const { name, email, description, contact, profile_image, cover_image } =
   getUser.value;
 
 const { $Fetch } = useNuxtApp();
-const baseUrl = "https://story-backend-production-3684.up.railway.app/";
-const showProfileImage = ref(profile_image ? baseUrl + profile_image : "");
-const showCoverImage = ref(cover_image ? baseUrl + cover_image : "");
+const showProfileImage = ref(profile_image || "");
+const showCoverImage = ref(cover_image || "");
 const loader = ref(false);
+const userName = ref("")
 
 const user = reactive({
   name: name,
@@ -137,6 +142,11 @@ const user = reactive({
   contact: contact || "",
   description: description || "",
 });
+
+
+onMounted(() => {
+  userName.value.focus()
+})
 
 function selectProfileImage(event) {
   const imageFiles = event.target.files[0];

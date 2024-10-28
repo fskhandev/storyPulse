@@ -1,12 +1,8 @@
 <template>
   <div class="">
     <div class="h-[45vh] md:h-[50vh] relative profile-banner">
-      <img
-        :src="baseUrl + userDetail.cover_image"
-        class="w-full h-full"
-        alt=""
-      />
-      <div class="absolute w-full top-0 h-full bg-[rgba(0,0,0,0.5)]"></div>
+      <img :src="userDetail.cover_image" class="w-full h-full" alt="" />
+      <div class="absolute w-full top-0 h-full bg-[rgba(0,0,0,0.6)]"></div>
       <updateProfileModal
         :userDetail="userDetail"
         @toggleModal="toggleModal"
@@ -28,7 +24,7 @@
       <div class="flex flex-col items-center">
         <img
           v-if="userDetail.profile_image"
-          :src="baseUrl + userDetail.profile_image"
+          :src="userDetail.profile_image"
           class="w-40 rounded-full h-40 object-cover border-white border-4"
           alt=""
         />
@@ -59,16 +55,12 @@
       </div>
     </div>
     <div class="-mt-28 md:-mt-36">
-    <div
-      class="md:max-w-[60%] px-4 md:px-16  text-justify mx-auto"
-    >
-      <p>
-        {{ userDetail.description }}
-      </p>
-
-   
-    </div>
-    <div class="stories mt-10 mb-10 md:px-16 px-3">
+      <div class="md:max-w-[60%] px-4 md:px-16 text-justify mx-auto">
+        <p>
+          {{ userDetail.description }}
+        </p>
+      </div>
+      <div class="stories mt-10 mb-10 md:px-16 px-3">
         <h2 class="border-b border-slate-700 text-xl font-semibold text-center">
           <span class="border-b-2 border-orange-500"> Stories</span>
         </h2>
@@ -85,19 +77,55 @@
             :isEdit="isEdit"
           />
         </div>
+        <div v-if="loading" class="grid w-full mt-10 gap-5 md:grid-cols-3">
+          <ContentLoader
+            v-for="(i, index) in 10"
+            :key="index"
+            viewBox="0 0 300 270"
+            class="shadow h-full border-t border-l border-r relative"
+          >
+            <!-- Profile Image Loader -->
+            <circle cx="30" cy="30" r="20" />
+            <!-- Reduced radius from 20 to 15 and adjusted y-coordinate -->
+
+            <!-- User Name Loader -->
+            <rect x="60" y="20" rx="3" ry="3" width="150" height="10" />
+
+            <!-- Time Ago Loader -->
+            <rect x="60" y="35" rx="3" ry="3" width="120" height="8" />
+
+            <!-- Story Image Loader -->
+            <rect x="0" y="60" rx="3" ry="3" width="300" height="150" />
+
+            <!-- Title Loader -->
+            <rect x="0" y="220" rx="3" ry="3" width="200" height="15" />
+
+            <!-- Description Loader -->
+            <rect x="0" y="240" rx="3" ry="3" width="250" height="10" />
+          </ContentLoader>
+        </div>
+
+        <p
+          v-if="!loading && !userStories.length"
+          class="text-xl mt-10 text-center text-red-400"
+        >
+          No record found
+        </p>
       </div>
-  </div>
+    </div>
   </div>
 </template>
 <script setup>
 import { ref, computed, onMounted } from "vue";
+import { ContentLoader } from "vue-content-loader";
+
 const router = useRoute();
-const baseUrl = ref("https://story-backend-production-3684.up.railway.app/");
 const { $Fetch } = useNuxtApp();
 const showEditModal = ref(false);
 const userStories = ref([]);
 const userDetail = ref({});
 const isEdit = ref(false);
+const loading = ref(true)
 const currentPage = ref(1);
 const isModal = ref(false);
 const selectedStory = ref();
@@ -116,12 +144,14 @@ if (router.query.user_id) {
 }
 
 const getUserStories = async (page) => {
+  loading.value = true
   const res = await $Fetch("/user-stories", {
     query: {
       user_id: router.query.user_id ? router.query.user_id : user.value.user_id,
       page: page,
     },
   });
+  loading.value = false
   userStories.value =
     page === 1 ? res.stories : userStories.value.concat(res.stories);
 };

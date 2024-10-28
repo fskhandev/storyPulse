@@ -6,17 +6,20 @@
       v-else-if="!isHomeBanner && !archive"
     />
     <BannerArchive v-if="archive" />
-    <div class="md:px-20 px-3 my-5 md:my-8">
-      <div class=" flex justify-between">
-        <span class="border-b-2 text-2xl font-semibold border-orange-500 pb-1"> {{ title }}</span>
+    <div  class="md:px-20 px-3 my-5 md:my-8">
+      <div class="flex justify-between">
+        <span class="border-b-2 text-2xl font-semibold border-orange-500 pb-1">
+          {{ title }}</span
+        >
         <button
+         v-if="!archive && !popularStories"
           @click="showModal"
           class="px-6 py-1.5 rounded-md hover:bg-orange-500 transition-all bg-orange-400 border text-white"
         >
           Create Story
         </button>
       </div>
-      <p class="text-center text-xl" v-if="loading">Loading...</p>
+     
       <p
         v-if="!loading && !result.length"
         class="text-xl mt-10 text-center text-red-400"
@@ -34,6 +37,34 @@
           />
         </div>
       </div>
+      <div  v-if="loading" class="grid w-full mt-10  gap-5 md:grid-cols-3">
+        <ContentLoader
+         
+          v-for="(i,index) in 10"
+          :key="index"
+          viewBox="0 0 300 270"
+          class="shadow h-full border-t border-l border-r relative"
+        >
+          <!-- Profile Image Loader -->
+          <circle cx="30" cy="30" r="20" />
+          <!-- Reduced radius from 20 to 15 and adjusted y-coordinate -->
+
+          <!-- User Name Loader -->
+          <rect x="60" y="20" rx="3" ry="3" width="150" height="10" />
+
+          <!-- Time Ago Loader -->
+          <rect x="60" y="35" rx="3" ry="3" width="120" height="8" />
+
+          <!-- Story Image Loader -->
+          <rect x="0" y="60" rx="3" ry="3" width="300" height="150" />
+
+          <!-- Title Loader -->
+          <rect x="0" y="220" rx="3" ry="3" width="200" height="15" />
+
+          <!-- Description Loader -->
+          <rect x="0" y="240" rx="3" ry="3" width="250" height="10" />
+        </ContentLoader>
+      </div>
       <!-- <p v-if="loading" class="text-center text-lg mt-5">Loading..</p> -->
       <StoryModal
         :isEdit="isEdit"
@@ -48,6 +79,8 @@
 </template>
 
 <script setup>
+import { ContentLoader } from "vue-content-loader";
+
 import { ref, reactive, toRef, nextTick, computed, onMounted } from "vue";
 const isModal = ref(false);
 const isEdit = ref(false);
@@ -90,6 +123,7 @@ onMounted(async () => {
 });
 
 async function getStories(page) {
+  loading.value = true
   const params = {};
   try {
     const res = await $Fetch(

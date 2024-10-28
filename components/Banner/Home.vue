@@ -1,5 +1,5 @@
 <template>
-    <div class="flex h-[500px] md:h-[100vh - 80px] banner items-center">
+    <div class="flex h-[500px] md:h-[70vh] banner items-center">
         <div class="banner-contents max-w-[550px] z-20 mx-2 md:mx-16 text-white">
             <h3 class="text-2xl md:text-3xl">
                 A space where stories come to life! Dive into a world of

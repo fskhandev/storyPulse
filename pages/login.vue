@@ -60,7 +60,6 @@
 </template>
 
 <script setup>
-const cookie = useCookie("token");
 import { ref, reactive } from "vue";
 const { $Fetch } = useNuxtApp();
 const setUser = useUser();
@@ -69,6 +68,7 @@ const loader = ref(false);
 const errMsg = ref("");
 const isLoggedIn = useAuth("auth");
 const router = useRouter();
+const route = useRoute();
 definePageMeta({
   layout: "auth",
   middleware: "home",
@@ -103,10 +103,14 @@ async function login() {
       body: userData,
     });
     loader.value = false;
+    if (res.success && !res.is_verified) {
+      router.push({ path: "/otp", query: { status: "non_verified" } });
+      localStorage.setItem("email", user.email);
+      return;
+    }
     if (res.success) {
+      const cookie = useCookie("token", { maxAge: 7 * 24 * 60 * 60 });
       cookie.value = res.token;
-      console.log(res.user);
-
       isLoggedIn.value = true;
       setUser.value = res.user;
       router.push("/");
