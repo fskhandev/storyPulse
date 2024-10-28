@@ -6,7 +6,11 @@
       @submit.prevent="createStory"
       class="form w-full relative mx-4 md:w-[500px] relative rounded-md bg-white shadow-md space-y-4 p-3 md:p-10"
     >
-    <span v-if="errorMessage" class="bg-white shadow px-6 py-2 rounded-md border text-red-700 left-4">{{ errorMessage }}</span>
+      <span
+        v-if="errorMessage"
+        class="bg-white shadow px-6 py-2 rounded-md border text-red-700 left-4"
+        >{{ errorMessage }}</span
+      >
       <IconClose
         @click="$emit('showModal')"
         class="text-3xl cursor-pointer absolute right-2 top-2"
@@ -85,7 +89,7 @@ const { $Fetch } = useNuxtApp();
 const showImage = ref("");
 const storyTitle = ref();
 const loader = ref(false);
-const errorMessage = ref("")
+const errorMessage = ref("");
 const baseUrl = ref("https://story-backend-production-3684.up.railway.app/");
 const blog = reactive({
   story_id: story?.story_id,
@@ -119,17 +123,14 @@ async function createStory() {
       body: data,
     });
     loader.value = false;
-    if(!res.success) {
-     errorMessage.value = res.message
-     setTimeout(() => {
-      emit("showModal");
-     }, 3000);
-     return
-    } 
-    
-  } catch (err) {
-    console.log(err);
-  }
+    if (!res.success) {
+      errorMessage.value = res.message;
+      setTimeout(() => {
+        emit("showModal");
+      }, 3000);
+      return;
+    }
+
 
   loader.value = false;
 
@@ -144,5 +145,8 @@ async function createStory() {
   blog.description = "";
   blog.image = "";
   showImage.image = "";
+} catch (err) {
+    console.log(err);
+  }
 }
 </script>
