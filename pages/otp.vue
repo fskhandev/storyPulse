@@ -89,9 +89,7 @@ async function verify() {
     });
     if(res.success && route.query.status) {
       cookie.value = res.token;
-      cookie.value = res.token;
       console.log(res.user);
-
       isLoggedIn.value = true;
       setUser.value = res.user;
       router.push("/");
