@@ -4,8 +4,9 @@
   >
     <form
       @submit.prevent="createStory"
-      class="form w-full mx-4 md:w-[500px] relative rounded-md bg-white shadow-md space-y-4 p-3 md:p-10"
+      class="form w-full relative mx-4 md:w-[500px] relative rounded-md bg-white shadow-md space-y-4 p-3 md:p-10"
     >
+    <span v-if="errorMessage" class="bg-white shadow px-6 py-2 rounded-md border text-red-700 left-4">{{ errorMessage }}</span>
       <IconClose
         @click="$emit('showModal')"
         class="text-3xl cursor-pointer absolute right-2 top-2"
@@ -82,8 +83,9 @@ const user = useUser();
 let { story, isEdit } = props;
 const { $Fetch } = useNuxtApp();
 const showImage = ref("");
-const storyTitle = ref()
+const storyTitle = ref();
 const loader = ref(false);
+const errorMessage = ref("")
 const baseUrl = ref("https://story-backend-production-3684.up.railway.app/");
 const blog = reactive({
   story_id: story?.story_id,
@@ -93,8 +95,8 @@ const blog = reactive({
 });
 
 onMounted(() => {
-  storyTitle.value.focus()
-})
+  storyTitle.value.focus();
+});
 
 function selectImage(event) {
   const imageFiles = event.target.files[0];
@@ -111,11 +113,26 @@ async function createStory() {
   data.append("description", blog.description);
   data.append("image", blog.image);
   const url = isEdit ? `/update-story` : "/create-blog";
-  const res = await $Fetch(url, {
-    method: "POST",
-    body: data,
-  });
+  try {
+    const res = await $Fetch(url, {
+      method: "POST",
+      body: data,
+    });
+    loader.value = false;
+    if(!res.success) {
+     errorMessage.value = res.message
+     setTimeout(() => {
+      emit("showModal");
+     }, 3000);
+     return
+    } 
+    
+  } catch (err) {
+    console.log(err);
+  }
+
   loader.value = false;
+
   if (isEdit) {
     emit("editStory", res.story);
   } else {
