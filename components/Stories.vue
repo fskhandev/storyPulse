@@ -83,11 +83,14 @@ import { ContentLoader } from "vue-content-loader";
 
 import { ref, reactive, toRef, nextTick, computed, onMounted } from "vue";
 const isModal = ref(false);
+
 const isEdit = ref(false);
 const currentPage = ref(1);
 const loading = ref(true);
 const user = useUser();
 const selectedStory = ref({});
+
+
 const props = defineProps({
   title: {
     default: "",

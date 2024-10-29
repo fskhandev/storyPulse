@@ -64,6 +64,8 @@ import { ref, reactive } from "vue";
 const { $Fetch } = useNuxtApp();
 const setUser = useUser();
 const cookie = useCookie("token");
+
+
 const type = ref("password");
 const loader = ref(false);
 const errMsg = ref("");
