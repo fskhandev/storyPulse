@@ -131,21 +131,20 @@ async function createStory() {
       return;
     }
 
+    loader.value = false;
 
-  loader.value = false;
+    if (isEdit) {
+      emit("editStory", res.story);
+    } else {
+      emit("addStory", res.story);
+    }
+    emit("showModal");
 
-  if (isEdit) {
-    emit("editStory", res.story);
-  } else {
-    emit("addStory", res.story);
-  }
-  emit("showModal");
-
-  blog.title = "";
-  blog.description = "";
-  blog.image = "";
-  showImage.image = "";
-} catch (err) {
+    blog.title = "";
+    blog.description = "";
+    blog.image = "";
+    showImage.image = "";
+  } catch (err) {
     console.log(err);
   }
 }

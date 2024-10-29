@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  target: "static",
   app: {
     head: {
       title: "StoryPulse",
@@ -9,6 +10,7 @@ export default defineNuxtConfig({
     }
   },
   devtools: { enabled: true },
+
   runtimeConfig: {
     public: {
       baseUrl: process.env.BASE_URL,
