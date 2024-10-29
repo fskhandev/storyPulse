@@ -60,11 +60,10 @@
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted } from "vue";
 const { $Fetch } = useNuxtApp();
 const setUser = useUser();
-const cookie = useCookie("token");
-
+const token = useCookie("token");
 
 const type = ref("password");
 const loader = ref(false);
@@ -79,6 +78,24 @@ definePageMeta({
 
 useHead({
   title: "Login - StoryPulse",
+});
+function getCookie(name) {
+  // Construct a string to search for the specific cookie name
+  const cookieString = document.cookie;
+  const cookies = cookieString.split("; "); // Split into individual key-value pairs
+
+  for (let cookie of cookies) {
+    const [key, value] = cookie.split("="); // Split each key-value pair
+    if (key === name) {
+      return decodeURIComponent(value); // Return the decoded cookie value
+    }
+  }
+  return null; // Return null if not found
+}
+
+onMounted(() => {
+  const token = getCookie("token");
+  console.log(token);
 });
 
 const user = reactive({
@@ -112,7 +129,7 @@ async function login() {
       return;
     }
     if (res.success) {
-      cookie.value = res.token;
+      token.value = res.token;
       isLoggedIn.value = true;
       setUser.value = res.user;
       router.push("/");
