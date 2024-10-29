@@ -6,8 +6,10 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   if (token.value) {
     await getUser();
   }
-  if (process.server) {
-    const headers = useRequestHeaders();
-    console.log('Incoming Headers on Server:', headers);
-  }
+  console.log("server side token", token.value);
+  
+  // if (process.server) {
+  //   const headers = useRequestHeaders();
+  //   console.log('Incoming Headers on Server:', headers);
+  // }
 });
