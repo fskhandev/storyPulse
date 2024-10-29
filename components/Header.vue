@@ -78,6 +78,7 @@
               />
               <IconProfileAvatar v-else class="w-8 h-8 fill-slate-400" />
               <span> {{ user.name }}</span>
+              {{ token ? token : "no token" }}
             </NuxtLink>
             <li
               @click="logOut"
