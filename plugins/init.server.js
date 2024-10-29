@@ -1,10 +1,6 @@
 
 export default defineNuxtPlugin(async (nuxtApp) => {
-  const token = useCookie("token", {
-    httpOnly: true, // Make the cookie inaccessible to JavaScript
-    secure: true,   // Ensures the cookie is sent only over HTTPS
-    sameSite: 'Lax' // Set SameSite attribute to 'Lax'
-  });
+  const token = useCookie("token");
 const getUser = useUserAuth();
 
 if (token.value) {
