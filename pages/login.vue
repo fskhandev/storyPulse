@@ -63,7 +63,11 @@
 import { ref, reactive, onMounted } from "vue";
 const { $Fetch } = useNuxtApp();
 const setUser = useUser();
-const token = useCookie("token");
+const token = useCookie("token", {
+  httpOnly: true, // Cookie can't be accessed via JavaScript
+  secure: true, // Cookie will only be sent over HTTPS
+  sameSite: "Lax", // Adjust as needed (e.g., 'Strict', 'None', 'Lax')
+});
 
 const type = ref("password");
 const loader = ref(false);
