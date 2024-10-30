@@ -76,15 +76,6 @@
             placeholder="Enter email"
           />
         </div>
-        <div>
-          <label for="">Mobile no</label>
-          <input
-            type="text"
-            class="w-full mt-2 rounded-xl border border-slate-400 focus:outline-none py-2 px-3"
-            v-model="user.contact"
-            placeholder="Enter mobile no"
-          />
-        </div>
       </div>
       <div>
         <label for="">About</label>
@@ -125,28 +116,25 @@ const props = defineProps({
 
 const getUser = useUser();
 
-const { name, email, description, contact, profile_image, cover_image } =
-  getUser.value;
+const { name, email, description, profile_image, cover_image } = getUser.value;
 
 const { $Fetch } = useNuxtApp();
 const showProfileImage = ref(profile_image || "");
 const showCoverImage = ref(cover_image || "");
 const loader = ref(false);
-const userName = ref("")
+const userName = ref("");
 
 const user = reactive({
   name: name,
   email: email,
   profile_image: "",
   cover_image: "",
-  contact: contact || "",
   description: description || "",
 });
 
-
 onMounted(() => {
-  userName.value.focus()
-})
+  userName.value.focus();
+});
 
 function selectProfileImage(event) {
   const imageFiles = event.target.files[0];
@@ -164,7 +152,6 @@ async function updateProfile() {
   const data = new FormData();
   data.append("name", user.name);
   data.append("email", user.email);
-  data.append("contact", user.contact);
   data.append("description", user.description);
   data.append("profile_image", user.profile_image);
   data.append("cover_image", user.cover_image);
