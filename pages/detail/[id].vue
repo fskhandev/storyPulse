@@ -59,7 +59,7 @@
     </div>
     <div class="related-stories col-span-5 md:col-span-2">
       <h1 class="text-2xl font-semibold">Explore More stories</h1>
-      <div class="mt-3 max-h-[500px] overflow-y-auto">
+      <div v-if="data?.otherStories.length" class="mt-3 max-h-[500px] overflow-y-auto">
         <div
           v-for="story in data?.otherStories"
           :key="story.id"
@@ -85,6 +85,7 @@
           </div>
         </div>
       </div>
+      <p v-else class="text-red-500 py-8 px-10">No other stories found</p>
     </div>
   </div>
 </template>

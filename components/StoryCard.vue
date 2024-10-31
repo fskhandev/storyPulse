@@ -71,11 +71,7 @@
       class="h-[250px] block w-full"
       :to="{ name: 'detail-id', params: { id: story.story_id } }"
     >
-      <img
-        class="w-full  h-full"
-        :src="story.image"
-        alt=""
-      />
+      <img class="w-full h-full" :src="story.image" alt="" />
     </NuxtLink>
     <div class="space-y-2 mb-8 p-3">
       <NuxtLink
@@ -90,7 +86,7 @@
       <p class="text-lg">{{ story?.description?.slice(0, 80) }}...</p>
     </div>
     <div class="absolute flex gap-1 px-3 items-center bottom-2 right-2">
-      <span @click="addToArchive(story)" class="cursor-pointer">
+      <span title="add to archive" @click="addToArchive(story)" class="cursor-pointer">
         <IconArchive
           :class="[story.is_archived ? 'fill-gray-900' : 'fill-gray-500']"
           class="w-7 h-7"
@@ -100,7 +96,7 @@
         <iconLike
           @click="addRemoveLike(story)"
           :class="[
-            story.user_like && isLoggedIn ? 'fill-green-400' : 'fill-black ',
+            story.user_like && isLoggedIn ? 'fill-green-600' : 'fill-black ',
           ]"
           class="cursor-pointer w-5"
         />
@@ -150,6 +146,10 @@ onMounted(() => {
 });
 
 async function addToArchive(story) {
+  story.is_archived = !story.is_archived;
+  if (!story.is_archived) {
+    emit("removeFromArchived", index);
+  }
   try {
     const res = await $Fetch("/add-remove-archive", {
       method: "POST",
@@ -158,12 +158,6 @@ async function addToArchive(story) {
       },
     });
     if (res.success) {
-      if (res.message === "archived") {
-        story.is_archived = 1;
-      } else {
-        story.is_archived = 0;
-        emit("removeFromArchived", index);
-      }
     }
   } catch (err) {
     console.log(err);
@@ -171,6 +165,12 @@ async function addToArchive(story) {
 }
 
 async function addRemoveLike(story) {
+  story.user_like = !story.user_like;
+  if (story.user_like) {
+    story.likes_count += 1;
+  } else {
+    story.likes_count -= 1;
+  }
   try {
     const res = await $Fetch("/add-remove-like", {
       method: "POST",
@@ -179,12 +179,6 @@ async function addRemoveLike(story) {
       },
     });
     if (res.success) {
-      if (res.message === "liked") {
-        story.likes_count += 1;
-      } else {
-        story.likes_count -= 1;
-      }
-      story.user_like = !story.user_like;
     }
   } catch (err) {
     console.log(err);
