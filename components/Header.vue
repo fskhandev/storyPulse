@@ -99,7 +99,7 @@
       <iconHumberger
         @click="toggleSidebar"
         :class="[
-          isScroll
+          isScroll || custom
             ? 'stroke-slate-900 fill-slate-900'
             : 'stroke-white fill-white',
         ]"
