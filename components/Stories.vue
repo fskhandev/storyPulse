@@ -6,20 +6,20 @@
       v-else-if="!isHomeBanner && !archive"
     />
     <BannerArchive v-if="archive" />
-    <div  class="md:px-20 px-3 my-5 md:my-8">
+    <div class="md:px-20 px-3 my-5 md:my-8">
       <div class="flex justify-between">
         <span class="border-b-2 text-2xl font-semibold border-orange-500 pb-1">
           {{ title }}</span
         >
         <button
-         v-if="!archive && !popularStories"
+          v-if="!archive && !popularStories"
           @click="showModal"
           class="px-6 py-1.5 rounded-md hover:bg-orange-500 transition-all bg-orange-400 border text-white"
         >
           Create Story
         </button>
       </div>
-     
+
       <p
         v-if="!loading && !result.length"
         class="text-xl mt-10 text-center text-red-400"
@@ -37,10 +37,9 @@
           />
         </div>
       </div>
-      <div  v-if="loading" class="grid w-full mt-10  gap-5 md:grid-cols-3">
+      <div v-if="loading" class="grid w-full mt-10 gap-5 md:grid-cols-3">
         <ContentLoader
-         
-          v-for="(i,index) in 10"
+          v-for="(i, index) in 10"
           :key="index"
           viewBox="0 0 300 270"
           class="shadow h-full border-t border-l border-r relative"
@@ -90,7 +89,6 @@ const loading = ref(true);
 const user = useUser();
 const selectedStory = ref({});
 
-
 const props = defineProps({
   title: {
     default: "",
@@ -119,14 +117,14 @@ const { archive } = props;
 
 onMounted(async () => {
   await getStories(currentPage.value);
-  const scroll = useScroll(currentPage.value, 10);
+  const scroll = useScroll(currentPage.value, 8);
   window.addEventListener("scroll", () => {
     scroll(result.value, getStories);
   });
 });
 
 async function getStories(page) {
-  loading.value = true
+  loading.value = true;
   const params = {};
   try {
     const res = await $Fetch(
