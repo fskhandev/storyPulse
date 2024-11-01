@@ -85,7 +85,7 @@
           </div>
         </div>
       </div>
-      <p v-else class="text-red-500 py-8 px-10">No other stories found</p>
+      <p v-else class="text-red-500 text-lg py-8 px-14">No record found</p>
     </div>
   </div>
 </template>

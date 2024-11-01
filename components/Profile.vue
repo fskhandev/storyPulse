@@ -158,7 +158,7 @@ const getUserStories = async (page) => {
 
 onMounted(() => {
   getUserStories(currentPage.value);
-  const scroll = useScroll(currentPage.value, 10);
+  const scroll = useScroll(currentPage.value, 9);
   window.addEventListener("scroll", () => {
     scroll(userStories.value, getUserStories);
   });

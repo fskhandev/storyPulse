@@ -90,12 +90,11 @@ const showImage = ref("");
 const storyTitle = ref();
 const loader = ref(false);
 const errorMessage = ref("");
-const baseUrl = ref("https://story-backend-production-3684.up.railway.app/");
 const blog = reactive({
   story_id: story?.story_id,
   title: story.title || "",
   description: story.description || "",
-  image: story.image ? (showImage.value = baseUrl.value + story.image) : "",
+  image: story.image ? (showImage.value = story.image) : "",
 });
 
 onMounted(() => {

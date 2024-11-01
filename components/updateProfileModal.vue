@@ -4,7 +4,7 @@
   >
     <form
       @submit.prevent="updateProfile"
-      class="form w-full overflow-y-auto max-h-[95%] md:max-h-[100%] mx-4 md:w-3/4 relative rounded-md bg-white shadow-md space-y-4 p-4"
+      class="form w-full overflow-y-auto max-h-[95%] md:max-h-[100%] mx-1 md:w-4/6 relative rounded-md bg-white shadow-md space-y-4 p-4"
     >
       <IconClose
         @click="$emit('toggleModal')"
@@ -24,7 +24,7 @@
                 @change="selectProfileImage"
               />
               <IconAvatar class="w-5 h-5" />
-              <p class="cursor-pointer">Upload profile image</p>
+              <p class="cursor-pointer text-xs md:text-base whitespace-nowrap">Upload profile image</p>
             </div>
             <div class="h-28 w-full md:w-44">
               <img :src="showProfileImage" class="h-full block w-full" alt="" />
@@ -45,7 +45,7 @@
                 @change="selectCoverImage"
               />
               <IconAvatar class="w-5 h-5" />
-              <p class="cursor-pointer">Upload cover image</p>
+              <p class="cursor-pointer  text-xs md:text-base whitespace-nowrap">Upload cover image</p>
             </div>
             <div class="w-44 h-28">
               <img :src="showCoverImage" class="h-full block w-full" alt="" />

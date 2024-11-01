@@ -39,7 +39,7 @@
       </div>
       <div v-if="loading" class="grid w-full mt-10 gap-5 md:grid-cols-3">
         <ContentLoader
-          v-for="(i, index) in 10"
+          v-for="(i, index) in 9"
           :key="index"
           viewBox="0 0 300 270"
           class="shadow h-full border-t border-l border-r relative"
